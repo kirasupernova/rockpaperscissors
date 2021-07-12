@@ -82,9 +82,10 @@
 		function game(e) {
       let computerSelection = computerPlay();
       let result = document.createElement('p');
+      results.textContent ='';
       result.classList.add('result');
       result.textContent =`Round ${++playCount}: ${rockPaperScissors(e.target.id, computerSelection)}`;
-      results.appendChild(result);
+      results.appendChild(result); 
       pscore.textContent = `Player Score: ${playerScore}`;
       cscore.textContent = `Computer Score: ${computerScore}`;
       checkScore();
@@ -92,13 +93,21 @@
 
     function checkScore() {
       if (playerScore < 5 && computerScore < 5) return;
-      else if (playerScore == 5) {
-        results.textContent = `Congratulations, you win with a score of ${playerScore}:${computerScore}`;
+      let finalScore = document.createElement('p');
+      finalScore.classList.add('finalscore');
+      if (playerScore == 5) {
+        results.textContent = '';
+        finalScore.textContent = `Congratulations, you win with a score of ${playerScore}:${computerScore}`;
+        finalScore.style.cssText = 'color: white; font-size: 16px; padding: 10px; background-color: green;';
+        results.appendChild(finalScore);
         playerScore = 0;
         computerScore = 0;
         playCount = 0;
       } else if (computerScore == 5) {
-        results.textContent = `Sorry! You lose with a score of ${playerScore}:${computerScore}`;
+        results.textContent = '';
+        finalScore.textContent = `Sorry! You lose with a score of ${playerScore}:${computerScore}`;
+        finalScore.style.cssText = 'color: white; font-size: 16px; padding: 10px; background-color: red;';
+        results.appendChild(finalScore);
         playerScore = 0;
         computerScore = 0;
         playCount = 0;
