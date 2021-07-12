@@ -1,0 +1,55 @@
+
+body {
+  display: grid;
+  grid-template-rows: 150px 150px 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+h1 {
+  justify-self:center;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+#buttons {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: 
+      "question question question"
+      "rock paper scissors";
+}
+
+h2 {
+  grid-area: question;
+  justify-self: center;
+
+}
+
+#rock {
+  grid-area: rock;
+}
+
+#paper {
+  grid-area: paper;
+}
+
+#scissors {
+  grid-area: scissors;
+}
+
+#results {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  justify-self: center;
+}
+
+.result {
+  text-align:center;
+}

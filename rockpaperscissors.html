@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
+    <link rel="stylesheet" href="rockpaperscissors.css">
 		<meta charset="utf-8"/>
 		<title> Rock, Paper, Scissors</title>
 	</head>
 	<body>
 		<h1> Rock, Paper, Scissors!</h1>
+    <div class="score" id="pscore">Player Score: 0</div>
+    <div id="buttons">
+      <h2>Which do you choose?</h2>
+       <button class="button" id="rock">Rock</button>
+      <button class="button" id="paper">Paper</button>
+      <button class="button" id="scissors">Scissors</button>
+    </div>
+    <div class="score" id="cscore">Computer Score: 0</div>
+
+    <div id="results"></div>
 		<script>
 
 		let playerScore = 0;
 		let computerScore = 0;
+    let playCount = 0;
 
 		function computerPlay() {
 		let randomize = Math.floor(Math.random() * 9 + 1);
@@ -20,7 +32,16 @@
 			} else {
 			return "Scissors"
 			}
-		}	
+		}
+    
+    const pscore = document.querySelector('#pscore');
+    const cscore = document.querySelector('#cscore');
+    const results = document.querySelector('#results');
+
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(button => {
+    button.addEventListener('click', game)
+    });
 
 		function rockPaperScissors(playerSelection, computerSelection) {
 		let capitalLetter = playerSelection.substring(0, 1).toUpperCase();
@@ -58,16 +79,32 @@
 
 		}
 
-		function game() {
-		for (let i = 0; i < 5; i++) {
-		let playerSelection = window.prompt("Rock, Paper or Scissors?");
-		let computerSelection = computerPlay();
-		console.log(rockPaperScissors(playerSelection, computerSelection));
-		}
-		playerScore > computerScore ? console.log(`Player wins with ${playerScore}:${computerScore}`) : console.log(`Computer wins with ${computerScore}:${playerScore}`)
+		function game(e) {
+      let computerSelection = computerPlay();
+      let result = document.createElement('p');
+      result.classList.add('result');
+      result.textContent =`Round ${++playCount}: ${rockPaperScissors(e.target.id, computerSelection)}`;
+      results.appendChild(result);
+      pscore.textContent = `Player Score: ${playerScore}`;
+      cscore.textContent = `Computer Score: ${computerScore}`;
+      checkScore();
 		}
 
-		game();
+    function checkScore() {
+      if (playerScore < 5 && computerScore < 5) return;
+      else if (playerScore == 5) {
+        results.textContent = `Congratulations, you win with a score of ${playerScore}:${computerScore}`;
+        playerScore = 0;
+        computerScore = 0;
+        playCount = 0;
+      } else if (computerScore == 5) {
+        results.textContent = `Sorry! You lose with a score of ${playerScore}:${computerScore}`;
+        playerScore = 0;
+        computerScore = 0;
+        playCount = 0;
+      }
+    }
+
 		</script>
 	</body>
 </html>
